@@ -1,0 +1,23 @@
+enum EstateType {
+    apartment,
+    house,
+    commercial,
+}
+
+input EstatesFilter {
+    city: String
+    type: EstateType
+}
+
+type Estate {
+    id: Int!
+    address: String!
+    city: String!
+    type: EstateType!
+    price: Int!
+    currency: String!
+}
+
+type Query {
+    estates(filter: EstatesFilter, search: String): [Estate!]!
+}
