@@ -1,6 +1,6 @@
 import { Navigate, Routes, Route } from 'react-router-dom';
 import { MAIN_ROUTES } from 'configs/routes';
-import { Estates } from 'view/pages/Estates';
+import { EstatesPage } from 'view/pages/EstatesPage';
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
         }
       />
 
-      <Route path={MAIN_ROUTES.ESTATES} element={<Estates />} />
+      <Route path={MAIN_ROUTES.ESTATES} element={<EstatesPage />} />
     </Routes>
   );
 }
