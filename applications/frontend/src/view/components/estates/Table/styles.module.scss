@@ -1,24 +1,30 @@
 .root {
-    table { 
-        width: 750px; 
-        border-collapse: collapse; 
-        margin:50px auto;
-    }
-    
+  .table { 
+    width: 100%; 
+    border-collapse: collapse; 
+    margin: 10px auto;
+
     tr:nth-of-type(odd) { 
-        background: #eee; 
+      background: #eee; 
     }
     
     th { 
-        background: #5d6265; 
-        color: white; 
-        font-weight: bold;
+      background: #5d6265; 
+      color: white; 
+      font-weight: bold;
     }
     
     td, th { 
-        padding: 10px; 
-        border: 1px solid #ccc; 
-        text-align: left; 
-        font-size: 18px;
+      padding: 10px; 
+      border: 1px solid #ccc; 
+      text-align: left; 
+      font-size: 18px;
     }
+  }
+
+  .tableControls {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+  }
 }

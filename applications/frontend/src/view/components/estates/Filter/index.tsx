@@ -17,11 +17,11 @@ export const Filter: React.FC<IProps> = ({ options = [''] }) => {
 
   const handleFilter = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedOption(e.target.value);
-    refetch({filter: {
-      city: e.target.value
-    },
-  });
-
+    refetch({
+      filter: {
+        city: e.target.value
+      },
+    });
   }, [refetch]);
 
   return (
