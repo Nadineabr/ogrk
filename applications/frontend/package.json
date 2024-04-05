@@ -12,6 +12,7 @@
     "@types/node": "^16.18.94",
     "@types/react": "^18.2.69",
     "@types/react-dom": "^18.2.22",
+    "classnames": "^2.5.1",
     "eslint-plugin-compat": "^4.2.0",
     "graphql": "^16.8.1",
     "react": "^18.2.0",

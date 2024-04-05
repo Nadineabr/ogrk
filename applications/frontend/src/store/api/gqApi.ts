@@ -1,8 +1,15 @@
-import { DocumentNode, useQuery, useMutation } from '@apollo/client';
+import { DocumentNode, useMutation, useQuery } from '@apollo/client';
+import { GetEstatesParams } from 'domains/common/commonEnums';
 
 export const GQApi = {
-  Query: (query: DocumentNode) => {
-    return useQuery(query, { errorPolicy: 'all' });
+  Query: (query: DocumentNode, filter: GetEstatesParams) => {
+    return useQuery(
+      query, 
+      {
+        fetchPolicy: 'cache-and-network',
+        variables: filter,
+        notifyOnNetworkStatusChange: true,
+      });
   },
 
   Mutation: (query: DocumentNode) => {
