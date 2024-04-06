@@ -51,7 +51,7 @@ export const Table: React.FC<IProps> = ({ data, filterOptions }) => {
         <thead>
           <tr>
             <th>Адрес</th>
-            <th><span>Город</span> <Filter options={filterOptions} /></th>
+            <th>Город <Filter options={filterOptions} /></th>
             <th>Тип</th>
             <th>Цена</th>
           </tr>
@@ -70,7 +70,7 @@ export const Table: React.FC<IProps> = ({ data, filterOptions }) => {
               })}
           </tbody>
       </table>
-      {!data?.length && <div>Не найдено</div>}
+      {!data?.length && <div style={{ textAlign: 'center'}}>Не найдено</div>}
     </div>
   );
 };

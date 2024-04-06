@@ -1,3 +1,5 @@
+import 'view/shared/styles/index.scss';
+
 import { Navigate, Routes, Route } from 'react-router-dom';
 import { MAIN_ROUTES } from 'configs/routes';
 import { EstatesPage } from 'view/pages/EstatesPage';

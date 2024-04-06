@@ -1,4 +1,8 @@
 .root {
     display: inline-flex;
     position: relative;
+
+    & label {
+        cursor: pointer;
+    }
 }
