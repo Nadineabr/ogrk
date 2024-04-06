@@ -6,7 +6,6 @@ interface IProps{
 }
 
 export const TableSearch: React.FC<IProps> = ({ onSearch, value, }) => {
-
   const handleChange = (e: any) => {
     e.preventDefault();
     //TODO: тут добавить hook throttle

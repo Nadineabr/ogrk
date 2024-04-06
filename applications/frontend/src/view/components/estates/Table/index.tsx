@@ -1,7 +1,9 @@
 import { Estate } from 'domains/estates/estatesEntity';
-import { useCallback, useMemo, useState } from 'react';
-import { getEstates } from 'store/api/estates';
-import { getUniqueValues } from 'view/utils/getUniqueValues';
+import { useCallback, 
+  useEffect,
+   useState } from 'react';
+import { useEstates } from 'view/hooks/useEstates';
+import useEstatesData from 'view/hooks/useEstatesData';
 import { ClearFilters } from '../ClearFilters';
 import { Filter } from '../Filter';
 import { TableSearch } from '../TableSearch';
@@ -10,37 +12,35 @@ import styles from './styles.module.scss';
 
 interface IProps {
   data: Estate[];
+  filterOptions: {
+    city: string[];
+  }
 }
 
-export const Table: React.FC<IProps> = ({ data }) => {
-  const {refetch} = getEstates();
+export const Table: React.FC<IProps> = ({ data, filterOptions }) => {
+  const { clearFilters, searchTable, data: updatedData } = useEstatesData();
+  const { setContextData } = useEstates();
 
-  const cities = useMemo(() => getUniqueValues(data, 'city'), [data]);
+  useEffect(() => {
+    if (updatedData) {
+      setContextData(updatedData);
+    }
+  }, [updatedData, setContextData])
 
   const [searchInput, setSearchInput] = useState('');
 
   const handleClearFilters = useCallback(() => {
-    refetch({
-      filter: {
-        city: '',
-      },
-      search: '',
-    });
+    clearFilters();
     setSearchInput('');
-  }, [refetch]);
+    setContextData(updatedData);
+  }, [clearFilters, setContextData, updatedData]);
 
   const handleSearch = (value: string) => {
     setSearchInput(value);
-    console.log(value)
-    refetch({
-      filter: {
-        city: '',
-      },
-      search: value,
-    });
+    searchTable(value);
   }
 
-  return Boolean(data?.length) ? (
+  return (
     <div className={styles.root}>
       <div className={styles.tableControls}>
         <TableSearch onSearch={handleSearch} value={searchInput} />
@@ -51,27 +51,26 @@ export const Table: React.FC<IProps> = ({ data }) => {
         <thead>
           <tr>
             <th>Адрес</th>
-            <th>Город <Filter options={cities} /></th>
+            <th><span>Город</span> <Filter options={filterOptions} /></th>
             <th>Тип</th>
             <th>Цена</th>
           </tr>
         </thead>
-        <tbody>
-        {data.map((item, index) => {
-          const { address, city, type, price } = item;
-          return (
-            <tr key={index}>
-              <td>{address}</td>
-              <td>{city}</td>
-              <td>{type}</td>
-              <td>{price}</td>
-            </tr>
-          )
-        })}
-        </tbody>
+          <tbody>
+            {!!data?.length && data.map((item, index) => {
+              const { address, city, type, price } = item;
+                return (
+                  <tr key={index}>
+                    <td>{address}</td>
+                    <td>{city}</td>
+                    <td>{type}</td>
+                    <td>{price}</td>
+                  </tr>
+                )
+              })}
+          </tbody>
       </table>
+      {!data?.length && <div>Не найдено</div>}
     </div>
-  ) : (
-    <div>Пусто</div>
   );
 };
