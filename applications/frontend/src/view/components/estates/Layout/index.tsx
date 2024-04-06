@@ -1,9 +1,11 @@
 import { Table } from '../Table';
 import { Loader } from 'view/shared/ui/Loader';
-import useEstatesData from 'view/hooks/useEstatesData';
-import { useEstates } from 'view/hooks/useEstates';
+import useEstatesData from 'view/hooks/estates/useEstatesData';
+import { useEstates } from 'view/hooks/estates/useEstates';
 import { useEffect, useState } from 'react';
 import { getUniqueValues } from 'view/utils/getUniqueValues';
+
+import styles from './styles.module.scss';
 
 export const Layout = () => {
   const { error, loading, data } = useEstatesData(); 
@@ -27,6 +29,8 @@ export const Layout = () => {
   return loading ? (
     <Loader />
   ) : (
-    <Table data={contextData?.estates} filterOptions={filterOptions} />
+    <div className={styles.root}>
+      <Table data={contextData?.estates} filterOptions={filterOptions} />
+    </div>
   );
 }

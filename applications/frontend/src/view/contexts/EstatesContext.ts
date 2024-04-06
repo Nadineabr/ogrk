@@ -10,6 +10,7 @@ export const DEFAULT_ESTATES: Estates = {
     price: 0,
   }]
 };
+
 interface IEstatesContext {
   contextData: Estates,
   setContextData: Dispatch<SetStateAction<Estates>>;

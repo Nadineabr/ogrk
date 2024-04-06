@@ -1,14 +1,14 @@
-import { useCallback,
- } from 'react';
+import { useCallback } from 'react';
 import { getEstates } from 'store/api/estates';
 
 const useEstatesData = () => {
   const { refetch, error, loading, data} = getEstates();
-  
+
   const addCityFilter = useCallback((city: string) => {
     refetch({
       filter: { city },
     });
+
   }, [refetch]);
 
   const searchTable = useCallback((value: string) => {
@@ -27,6 +27,7 @@ const useEstatesData = () => {
       },
       search: '',
     });
+
   }, [refetch]);
 
   return {

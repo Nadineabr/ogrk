@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useEstates } from 'view/hooks/useEstates';
-import useEstatesData from 'view/hooks/useEstatesData';
+import { useEstates } from 'view/hooks/estates/useEstates';
+import useEstatesData from 'view/hooks/estates/useEstatesData';
 import { ReactComponent as SettingsIcon } from 'view/icons/svg/settings.svg';
 import { Dropdown } from 'view/shared/ui/DropDown';
 

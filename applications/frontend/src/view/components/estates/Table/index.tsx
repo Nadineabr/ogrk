@@ -1,9 +1,7 @@
 import { Estate } from 'domains/estates/estatesEntity';
-import { useCallback, 
-  useEffect,
-   useState } from 'react';
-import { useEstates } from 'view/hooks/useEstates';
-import useEstatesData from 'view/hooks/useEstatesData';
+import { useCallback, useEffect, useState } from 'react';
+import { useEstates } from 'view/hooks/estates/useEstates';
+import useEstatesData from 'view/hooks/estates/useEstatesData';
 import { ClearFilters } from '../ClearFilters';
 import { Filter } from '../Filter';
 import { TableSearch } from '../TableSearch';

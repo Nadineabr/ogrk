@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Layout as PageLayout } from 'view/components/estates/Layout';
 import { EstatesContext } from 'view/contexts/EstatesContext';
-import useEstatesData from 'view/hooks/useEstatesData';
+import useEstatesData from 'view/hooks/estates/useEstatesData';
 
 export const EstatesPage = () => {
   const { data } = useEstatesData(); 
