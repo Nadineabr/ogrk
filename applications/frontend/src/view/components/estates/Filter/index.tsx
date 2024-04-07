@@ -8,19 +8,22 @@ import styles from './styles.module.scss';
 
 interface IProps {
   options?: {city: string[]};
+  onSetFilter: () => void;
 }
 
-export const Filter: React.FC<IProps> = ({ options = {city: ['']} }) => {
+export const Filter: React.FC<IProps> = ({ options = {city: ['']}, onSetFilter }) => {
   const { data, addCityFilter } = useEstatesData();
   const { setContextData } = useEstates();
 
   const [selectedOption, setSelectedOption] = useState('');
 
   const handleFilter = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    onSetFilter?.();
+
     setSelectedOption(e.target.value);
 
     addCityFilter(e.target.value);
-  }, [addCityFilter]);
+  }, [addCityFilter, onSetFilter]);
 
   useEffect(() => {
     if (data) {

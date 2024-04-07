@@ -27,7 +27,6 @@ const useEstatesData = () => {
       },
       search: '',
     });
-
   }, [refetch]);
 
   return {

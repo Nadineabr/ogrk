@@ -5,8 +5,8 @@ interface IProps{
   value: string;
 }
 
-export const TableSearch: React.FC<IProps> = ({ onSearch, value, }) => {
-  const handleChange = (e: any) => {
+export const TableSearch: React.FC<IProps> = ({ onSearch, value }) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     //TODO: тут добавить hook throttle
     onSearch(e.target.value);

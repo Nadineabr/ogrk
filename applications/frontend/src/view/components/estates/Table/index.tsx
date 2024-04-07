@@ -1,7 +1,8 @@
 import { Estate } from 'domains/estates/estatesEntity';
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useEstates } from 'view/hooks/estates/useEstates';
 import useEstatesData from 'view/hooks/estates/useEstatesData';
+import { highlightText } from 'view/utils/highlightText';
 import { ClearFilters } from '../ClearFilters';
 import { Filter } from '../Filter';
 import { TableSearch } from '../TableSearch';
@@ -19,13 +20,13 @@ export const Table: React.FC<IProps> = ({ data, filterOptions }) => {
   const { clearFilters, searchTable, data: updatedData } = useEstatesData();
   const { setContextData } = useEstates();
 
+  const [searchInput, setSearchInput] = useState<string>('');
+
   useEffect(() => {
     if (updatedData) {
       setContextData(updatedData);
     }
-  }, [updatedData, setContextData])
-
-  const [searchInput, setSearchInput] = useState('');
+  }, [updatedData, setContextData]);
 
   const handleClearFilters = useCallback(() => {
     clearFilters();
@@ -33,9 +34,13 @@ export const Table: React.FC<IProps> = ({ data, filterOptions }) => {
     setContextData(updatedData);
   }, [clearFilters, setContextData, updatedData]);
 
-  const handleSearch = (value: string) => {
+  const handleSearch = useCallback((value: string) => {
     setSearchInput(value);
     searchTable(value);
+  }, [searchTable]);
+
+  const handleSetFilter = () => {
+    setSearchInput('');
   }
 
   return (
@@ -49,24 +54,24 @@ export const Table: React.FC<IProps> = ({ data, filterOptions }) => {
         <thead>
           <tr>
             <th>Адрес</th>
-            <th>Город <Filter options={filterOptions} /></th>
+            <th>Город <Filter options={filterOptions} onSetFilter={handleSetFilter} /></th>
             <th>Тип</th>
             <th>Цена</th>
           </tr>
         </thead>
-          <tbody>
-            {!!data?.length && data.map((item, index) => {
-              const { address, city, type, price } = item;
-                return (
-                  <tr key={index}>
-                    <td>{address}</td>
-                    <td>{city}</td>
-                    <td>{type}</td>
-                    <td>{price}</td>
-                  </tr>
-                )
-              })}
-          </tbody>
+        <tbody>
+          {!!data?.length && data.map((item, index) => {
+            const { address, city, type, price } = item;
+            return (
+              <tr key={index}>
+                <td dangerouslySetInnerHTML={{ __html: `<td>${highlightText(address, searchInput)}</td>` }} />
+                <td>{city}</td>
+                <td>{type}</td>
+                <td>{price}</td>
+              </tr>
+            )
+          })}
+        </tbody>
       </table>
       {!data?.length && <div style={{ textAlign: 'center'}}>Не найдено</div>}
     </div>
